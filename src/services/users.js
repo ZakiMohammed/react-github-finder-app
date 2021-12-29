@@ -18,6 +18,12 @@ export const getUsers = async () => {
     return { response, data };
 }
 
+export const getUser = async (login) => {
+    const response = await fetch(`${API_URL}${API_ROUTES.USERS}/${login}`, options)
+    const data = await response.json()
+    return { response, data };
+}
+
 export const searchUsers = async (q) => {
     const response = await fetch(`${API_URL}${API_ROUTES.SEARCH}/${API_ROUTES.USERS}?q=${q}`, options)
     const data = await response.json()
