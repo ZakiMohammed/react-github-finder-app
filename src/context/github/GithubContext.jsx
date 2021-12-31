@@ -1,6 +1,5 @@
 import { createContext, useReducer } from 'react'
 import gitHubReducer from './GithubReducer'
-import * as action from './GithubAction'
 
 const GithubContext = createContext()
 

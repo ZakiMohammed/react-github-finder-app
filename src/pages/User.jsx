@@ -11,15 +11,19 @@ const User = () => {
     const params = useParams()
     const { dispatch, user, repos, loading } = useContext(GithubContext)
 
-    useEffect(async () => {
-        dispatch({ type: 'SET_LOADING' })
+    useEffect(() => {
+        const getUserAndRepos = async () => {
+            dispatch({ type: 'SET_LOADING' })
+    
+            const data = await action.getUserAndRepos(params.login);
+    
+            dispatch({
+                type: 'GET_USER_AND_REPOS',
+                payload: data
+            })
+        };
 
-        const data = await action.getUserAndRepos(params.login);
-
-        dispatch({
-            type: 'GET_USER_AND_REPOS',
-            payload: data
-        })
+        getUserAndRepos();
     }, [dispatch, params.login])
 
     if (loading) {
