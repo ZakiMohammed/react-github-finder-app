@@ -1,24 +1,32 @@
 import { useState, useContext } from 'react'
-import GithubContext from '../../context/GithubContext'
-import AlertContext from '../../context/AlertContext'
+import GithubContext from '../../context/github/GithubContext'
+import AlertContext from '../../context/alert/AlertContext'
+import * as action from '../../context/github/GithubAction'
 
 const UserSearch = () => {
 
-    const { search, clear } = useContext(GithubContext)
+    const { dispatch } = useContext(GithubContext)
     const { showAlert } = useContext(AlertContext)
     const [text, setText] = useState('')
 
     const handleText = (e) => setText(e.target.value)
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (text) {
-            search(text)
+            dispatch({ type: 'SET_LOADING' })
+
+            const data = await action.searchUsers(text);
+
+            dispatch({
+                type: 'GET_USERS',
+                payload: data.items
+            })
         } else {
             showAlert({ type: 'error', message: 'Please enter something' })
         }
     }
-    const handleClear = (e) => clear()
+    const handleClear = () => dispatch({ type: 'CLEAR' })
 
     return (
         <div className='grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 mb-8 gap-8'>

@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import User from './pages/User';
 import Alert from './components/layout/Alert';
-import { AlertProvider } from './context/AlertContext';
-import { GithubProvider } from './context/GithubContext';
+import { AlertProvider } from './context/alert/AlertContext';
+import { GithubProvider } from './context/github/GithubContext';
 import NotFound from './pages/NotFound';
 import About from './pages/About';
 import Home from './pages/Home';
